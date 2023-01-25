@@ -11,5 +11,9 @@ ipython
 isort
 pep8-naming
 pip-tools
+pyflakes
+pylint
+pytest-cov
+pytest-django
 pytest
 pytest-django
