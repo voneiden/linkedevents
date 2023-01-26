@@ -14,10 +14,10 @@
 
 set -e
 
-PGUSER="$POSTGRES_USER"
-PGPASSWORD="$POSTGRES_PASSWORD"
-PGHOST="localhost"
-PGPORT="5432"
+export PGUSER="$POSTGRES_USER"
+export PGPASSWORD="$POSTGRES_PASSWORD"
+export PGHOST="localhost"
+export PGPORT="5432"
 
 psql="psql -v ON_ERROR_STOP=1"
 
