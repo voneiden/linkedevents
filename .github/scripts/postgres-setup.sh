@@ -1,19 +1,24 @@
 #!/bin/bash
 
 #################################################
-# This file is taken directly from:
+# This based on:
 # https://github.com/City-of-Helsinki/docker-images/blob/master/templates/postgis/9.6-2.5/initdb-postgis.sh
-# Only "hstore" and "pg_trgm" extensions have been added.
-# Also converted $psql to not be a bash array because
-# passing those from yaml env definitions is pretty sketchy
+#
+# Modifications:
+# * "hstore" and "pg_trgm" extensions have been added.
+# * converted $psql to not be a bash array because
+#   passing those from yaml env definitions is pretty sketchy
+# * Grab PG env vars from available test environment
+#
 #################################################
 
 set -e
 
-# Perform all actions as $POSTGRES_USER
-export PGUSER="$POSTGRES_USER"
+PGUSER="$POSTGRES_USER"
+PGPASSWORD="$POSTGRES_PASSWORD"
+PGHOST="localhost"
+PGPORT="5432"
 
-# Create the 'template_postgis' template db
 psql="psql -v ON_ERROR_STOP=1"
 
 echo "Loading PostGIS extensions into $DB"
