@@ -30,6 +30,10 @@ jobs:
     services:
       postgres:
         image: helsinkitest/postgis:9.6-2.5-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_linkedevents
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -48,7 +52,6 @@ jobs:
       - name: Setup postgres extensions
         run: ./.github/scripts/postgres-setup.sh
         shell: bash
-
 
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
