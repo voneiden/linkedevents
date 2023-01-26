@@ -11,9 +11,13 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 env:
-  POSTGRES_DB: test_linkedevents
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: "test_linkedevents"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "postgres"
+  PGUSER: "postgres"
+  PGPASSWORD: "postgres"
+  PGHOST: "localhost"
+  PGPORT: 5432
   DATABASE_URL: "postgis://postgres:postgres@localhost/test_linkedevents"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -26,10 +30,6 @@ jobs:
     services:
       postgres:
         image: helsinkitest/postgis:9.6-2.5-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: test_linkedevents
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
@@ -48,12 +48,6 @@ jobs:
       - name: Setup postgres extensions
         run: ./.github/scripts/postgres-setup.sh
         shell: bash
-        env:
-          psql: "psql -v ON_ERROR_STOP=1 --username postgres --no-password"
-          PGUSER: "postgres"
-          PGPASSWORD: "postgres"
-          PGHOST: "localhost"
-          PGPORT: 5432
 
 
       - name: Setup Python ${{ matrix.python-version }}
