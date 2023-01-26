@@ -39,11 +39,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python }}
-
       - name: psycopg2 prerequisites
         run: sudo apt-get install libpq-dev
 
@@ -60,6 +55,12 @@ jobs:
           PGHOST: "localhost"
           PGPORT: 5432
 
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+          cache: 'pip' # caching pip dependencies
 
       - name: Install dependencies
         run: |
