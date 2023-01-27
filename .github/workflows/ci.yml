@@ -45,9 +45,9 @@ jobs:
       - name: System requirements for Django
         run:  sudo apt-get install gdal-bin gettext postgresql-client
 
-      - name: Setup postgres extensions
-        run: ./.github/scripts/postgres-setup.sh
-        shell: bash
+      #- name: Setup postgres extensions
+      #  run: ./.github/scripts/postgres-setup.sh
+      #  shell: bash
 
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
